@@ -22,6 +22,7 @@ void selection_sort(int arr[], int n) {
 
 
 int main() {
+  
   int arr[] = {13,46,24,52,20,9};
   int n = sizeof(arr) / sizeof(arr[0]);
    cout << "Before selection sort: " << "\n";
