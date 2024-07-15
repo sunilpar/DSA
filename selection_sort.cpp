@@ -20,7 +20,6 @@ void selection_sort(int arr[], int n) {
   cout << "\n";
 }
 
-
 int main() {
   
   int arr[] = {13,46,24,52,20,9};
