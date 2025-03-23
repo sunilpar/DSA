@@ -7,36 +7,43 @@ import (
 )
 
 func main() {
-
-	l := DS.LinkedList[int]{}
-	l.InsertAtFront(10)
-	l.Insert(20)
-	l.Insert(30)
-
-	val, err := l.Peek()
-	if err != nil {
-		log.Fatal(err)
-	} else {
-		fmt.Printf("peek :%d\n", val)
+	q := DS.Queue[int]{
+		L: DS.LinkedList[int]{},
 	}
 
-	endval, err := l.PeekAtEnd()
+	v, err := q.Enqueue(10)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("error: %s\n", err.Error())
 	} else {
-		fmt.Printf("peek :%d\n", endval)
+		fmt.Printf("val inserted :%d \n", v)
 	}
 
-	fmt.Printf("isEmpty:%v\n", l.IsEmpty())
+	v, err = q.Enqueue(20)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	} else {
+		fmt.Printf("val inserted :%d \n", v)
+	}
 
-	fmt.Printf("size :%d\n", l.Size())
+	v, err = q.Enqueue(30)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	} else {
+		fmt.Printf("val inserted :%d \n", v)
+	}
 
-	l.Delete()
-	l.Delete()
-	l.Delete()
-	fmt.Printf("isEmpty:%v\n", l.IsEmpty())
-	l.Delete()
+	v, err = q.Enqueue(40)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	} else {
+		fmt.Printf("val inserted :%d \n", v)
+	}
 
-	l.Display()
+	err = q.Dequeue()
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
+
+	q.Display()
 
 }
