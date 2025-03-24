@@ -61,7 +61,7 @@ func (l *LinkedList[T]) Delete() error {
 			l.head = l.head.next
 		}
 
-		fmt.Printf("new head is :%p\n", l.head)
+		//		fmt.Printf("new head is :%p\n", l.head)
 	}
 	return nil
 }
@@ -79,7 +79,7 @@ func (l *LinkedList[T]) DeleteAtEnd() error {
 			l.tail = l.tail.prev
 		}
 
-		fmt.Printf("new tail is :%p\n", l.tail)
+		//	fmt.Printf("new tail is :%p\n", l.tail)
 	}
 	return nil
 }

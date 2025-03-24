@@ -7,43 +7,30 @@ import (
 )
 
 func main() {
-	q := DS.Queue[int]{
+	s := DS.Stack[int]{
 		L: DS.LinkedList[int]{},
 	}
+	s.Push(10)
+	s.Push(20)
+	s.Push(30)
 
-	v, err := q.Enqueue(10)
+	v, err := s.Pop()
 	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	} else {
-		fmt.Printf("val inserted :%d \n", v)
+		log.Printf("error: %s\n", err)
 	}
+	fmt.Printf("poped :%v\n", v)
 
-	v, err = q.Enqueue(20)
+	v, err = s.Pop()
 	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	} else {
-		fmt.Printf("val inserted :%d \n", v)
+		log.Printf("error: %s\n", err)
 	}
+	fmt.Printf("poped :%v\n", v)
 
-	v, err = q.Enqueue(30)
+	v, err = s.Peek()
 	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	} else {
-		fmt.Printf("val inserted :%d \n", v)
+		log.Printf("error: %s\n", err)
 	}
+	fmt.Printf("peek value :%v\n", v)
 
-	v, err = q.Enqueue(40)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	} else {
-		fmt.Printf("val inserted :%d \n", v)
-	}
-
-	err = q.Dequeue()
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
-
-	q.Display()
-
+	s.Display()
 }

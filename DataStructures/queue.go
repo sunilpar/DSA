@@ -26,6 +26,6 @@ func (q *Queue[T]) Dequeue() error {
 	return nil
 }
 
-func (q *Queue[T]) Display() {
+func (q Queue[T]) Display() {
 	q.L.Display()
 }
