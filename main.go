@@ -2,35 +2,22 @@ package main
 
 import (
 	DS "DSA/DataStructures"
-	"fmt"
-	"log"
 )
 
 func main() {
-	s := DS.Stack[int]{
-		L: DS.LinkedList[int]{},
+	r := DS.Ringbuffer[int]{
+		Arr:  make([]int, 4), // Initialize the array
+		Head: 4 / 2,
+		Tail: 4 / 2,
+		Size: 4,
 	}
-	s.Push(10)
-	s.Push(20)
-	s.Push(30)
 
-	v, err := s.Pop()
-	if err != nil {
-		log.Printf("error: %s\n", err)
-	}
-	fmt.Printf("poped :%v\n", v)
+	r.Enqueue(10)
+	r.Enqueue(20)
+	r.Enqueue(30)
+	r.Enqueue(40)
+	r.Enqueue(50)
+	r.Enqueue(60)
 
-	v, err = s.Pop()
-	if err != nil {
-		log.Printf("error: %s\n", err)
-	}
-	fmt.Printf("poped :%v\n", v)
-
-	v, err = s.Peek()
-	if err != nil {
-		log.Printf("error: %s\n", err)
-	}
-	fmt.Printf("peek value :%v\n", v)
-
-	s.Display()
+	r.Display()
 }
