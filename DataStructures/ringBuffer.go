@@ -1,6 +1,9 @@
 package DS
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type Ringbuffer[T any] struct {
 	Arr  []T
@@ -10,22 +13,32 @@ type Ringbuffer[T any] struct {
 }
 
 func (r *Ringbuffer[T]) EnqueueInFront(value T) {
+	s := time.Now()
 	if ((r.Head-1)+r.Size)%r.Size == r.Tail {
 		r.reallocate()
 	}
+
 	r.Head = ((r.Head - 1) + r.Size) % r.Size
 	r.Arr[r.Head] = value
+
+	e := time.Since(s)
+	fmt.Printf("\ntime taken:%v\n", e)
 }
 
 func (r *Ringbuffer[T]) Enqueue(value T) {
+	s := time.Now()
 	if (r.Tail+1)%r.Size == r.Head {
 		r.reallocate()
 	}
 	r.Arr[r.Tail] = value
 	r.Tail = (r.Tail + 1) % r.Size
+	e := time.Since(s)
+	fmt.Printf("\ntime taken:%v\n", e)
+
 }
 
 func (r *Ringbuffer[T]) Dequeue() error {
+	s := time.Now()
 	if r.Tail == r.Head {
 		return fmt.Errorf("cant dequeue empty array\n")
 	}
@@ -35,10 +48,14 @@ func (r *Ringbuffer[T]) Dequeue() error {
 		r.Head = r.Size / 2
 		r.Tail = r.Size / 2
 	}
+	e := time.Since(s)
+	fmt.Printf("\ntime taken:%v\n", e)
+
 	return nil
 }
 
 func (r *Ringbuffer[T]) DequeueFromFront() error {
+	s := time.Now()
 	if r.Head == r.Tail {
 		return fmt.Errorf("cant dequeue from empty array!!\n")
 	}
@@ -47,10 +64,14 @@ func (r *Ringbuffer[T]) DequeueFromFront() error {
 		r.Head = r.Size / 2
 		r.Tail = r.Size / 2
 	}
+	e := time.Since(s)
+	fmt.Printf("\ntime taken:%v\n", e)
+
 	return nil
 }
 
 func (r Ringbuffer[T]) Display() {
+	s := time.Now()
 	if r.Tail != r.Head {
 		i := r.Head
 		fmt.Print("\n")
@@ -65,9 +86,12 @@ func (r Ringbuffer[T]) Display() {
 	} else {
 		fmt.Printf("Array is empty !!\n")
 	}
+	e := time.Since(s)
+	fmt.Printf("\ntime taken:%v\n", e)
 }
 
 func (r *Ringbuffer[T]) Len() int {
+	s := time.Now()
 	if r.Tail == r.Head {
 		return 0
 	}
@@ -76,10 +100,14 @@ func (r *Ringbuffer[T]) Len() int {
 		h_t := (r.Head - r.Tail)
 		return (r.Size - h_t)
 	}
+
+	e := time.Since(s)
+	fmt.Printf("\ntime taken:%v\n", e)
 	return (r.Tail - r.Head)
 }
 
 func (r *Ringbuffer[T]) reallocate() {
+	s := time.Now()
 	nsize := r.Size * r.Size
 	newa := make([]T, nsize)
 
@@ -97,5 +125,7 @@ func (r *Ringbuffer[T]) reallocate() {
 	r.Tail = j
 	r.Arr = newa
 	r.Size = nsize
+	e := time.Since(s)
+	fmt.Printf("\ntime taken:%v\n", e)
 	fmt.Printf("after allocation %v[%v:%v]\n", nsize, r.Head, r.Tail)
 }
