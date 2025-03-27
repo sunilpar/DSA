@@ -2,6 +2,7 @@ package main
 
 import (
 	DS "DSA/DataStructures"
+	"fmt"
 )
 
 func main() {
@@ -22,6 +23,56 @@ func main() {
 	r.Enqueue(80)
 	r.Enqueue(90)
 	r.Enqueue(100)
+	r.Enqueue(110)
+
+	fmt.Printf("\nlen of Arr:%d", r.Len())
+
+	err := r.Dequeue()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	err = r.Dequeue()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	err = r.Dequeue()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	err = r.Dequeue()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	err = r.Dequeue()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	err = r.Dequeue()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	err = r.DequeueFromFront()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	err = r.DequeueFromFront()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	err = r.DequeueFromFront()
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	fmt.Printf("\nlen of Arr:%d", r.Len())
 
 	r.Display()
 }
