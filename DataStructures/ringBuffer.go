@@ -10,35 +10,26 @@ type Ringbuffer[T any] struct {
 }
 
 func (r *Ringbuffer[T]) EnqueueInFront(value T) {
-	prevh := r.Head
-	prevt := r.Tail
 	if ((r.Head-1)+r.Size)%r.Size == r.Tail {
 		r.reallocate()
 	}
 	r.Head = ((r.Head - 1) + r.Size) % r.Size
 	r.Arr[r.Head] = value
-	fmt.Printf("\n head was:%v\n tail was:%v \n inserted %v at front :[%v:%v]\n", prevh, prevt, value, r.Head, r.Tail)
 }
 
 func (r *Ringbuffer[T]) Enqueue(value T) {
-	prevh := r.Head
-	prevt := r.Tail
 	if (r.Tail+1)%r.Size == r.Head {
 		r.reallocate()
 	}
 	r.Arr[r.Tail] = value
 	r.Tail = (r.Tail + 1) % r.Size
-	fmt.Printf("\n head was:%v\n tail was:%v \n inserted %v at :[%v:%v]\n", prevh, prevt, value, r.Head, r.Tail)
 }
 
 func (r *Ringbuffer[T]) Dequeue() error {
-	prevh := r.Head
-	prevt := r.Tail
 	if r.Tail == r.Head {
 		return fmt.Errorf("cant dequeue empty array\n")
 	}
 	r.Tail = ((r.Tail - 1) + r.Size) % r.Size
-	fmt.Printf("\n head was:%v\n tail was:%v \n deleted at %v:[%v:%v]\n", prevh, prevt, r.Arr[r.Tail], r.Head, r.Tail)
 
 	if r.Tail == r.Head {
 		r.Head = r.Size / 2
@@ -48,13 +39,10 @@ func (r *Ringbuffer[T]) Dequeue() error {
 }
 
 func (r *Ringbuffer[T]) DequeueFromFront() error {
-	prevh := r.Head
-	prevt := r.Tail
 	if r.Head == r.Tail {
 		return fmt.Errorf("cant dequeue from empty array!!\n")
 	}
 	r.Head = (r.Head + 1) % r.Size
-	fmt.Printf("\n head was:%v\n tail was:%v \n deleted at front %v:[%v:%v]\n", prevh, prevt, r.Arr[r.Tail], r.Head, r.Tail)
 	if r.Head == r.Tail {
 		r.Head = r.Size / 2
 		r.Tail = r.Size / 2
@@ -63,9 +51,9 @@ func (r *Ringbuffer[T]) DequeueFromFront() error {
 }
 
 func (r Ringbuffer[T]) Display() {
-	fmt.Printf("\n display[%v:%v]\n", r.Head, r.Tail)
 	if r.Tail != r.Head {
 		i := r.Head
+		fmt.Print("\n")
 		for {
 			fmt.Printf("%v:%v ", i, r.Arr[i])
 
@@ -92,7 +80,6 @@ func (r *Ringbuffer[T]) Len() int {
 }
 
 func (r *Ringbuffer[T]) reallocate() {
-	fmt.Printf("\nbefore allocation %v[%v:%v]\n", r.Size, r.Head, r.Tail)
 	nsize := r.Size * r.Size
 	newa := make([]T, nsize)
 
