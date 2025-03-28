@@ -1,78 +1,39 @@
 package main
 
 import (
-	DS "DSA/DataStructures"
+	Algo "DSA/Algorithms"
 	"fmt"
+	"log"
 )
 
 func main() {
-	r := DS.Ringbuffer[int]{
-		Arr:  make([]int, 4),
-		Head: 4 / 2,
-		Tail: 4 / 2,
-		Size: 4,
-	}
+	//default is assending order
+	var arr1 = []int{80, 70, 60, 50, 40, 30, 20, 10}
+	var arr2 = []int{10, 20, 30, 40, 50, 60, 70, 80}
 
-	r.EnqueueInFront(10)
-	r.Enqueue(20)
-	r.Enqueue(30)
-	r.Enqueue(40)
-	r.Enqueue(50)
-	r.Enqueue(60)
-	r.Enqueue(70)
-	r.Enqueue(80)
-	r.Enqueue(90)
-	r.Enqueue(100)
-	r.Enqueue(110)
-
-	fmt.Printf("\nlen of Arr:%d", r.Len())
-
-	err := r.Dequeue()
+	arr, err := Algo.BubbleSortFor(arr1)
 	if err != nil {
-		fmt.Print(err)
+		log.Fatalf("error: %s\n", err.Error())
 	}
+	fmt.Printf("sorted arr %v\n", arr)
 
-	err = r.Dequeue()
+	arr, err = Algo.BubbleSortFor(arr2)
 	if err != nil {
-		fmt.Print(err)
+		log.Fatalf("error: %s\n", err.Error())
 	}
+	fmt.Printf("sorted arr %v\n", arr)
 
-	err = r.Dequeue()
+	fmt.Print("\nrange\n")
+	arr, err = Algo.BubbleSort(arr1)
 	if err != nil {
-		fmt.Print(err)
+		log.Fatalf("error: %s\n", err.Error())
 	}
+	fmt.Printf("sorted arr %v\n", arr)
 
-	err = r.Dequeue()
+	arr, err = Algo.BubbleSort(arr2)
 	if err != nil {
-		fmt.Print(err)
+		log.Fatalf("error: %s\n", err.Error())
 	}
+	fmt.Printf("sorted arr %v\n", arr)
 
-	err = r.Dequeue()
-	if err != nil {
-		fmt.Print(err)
-	}
-
-	err = r.Dequeue()
-	if err != nil {
-		fmt.Print(err)
-	}
-
-	err = r.DequeueFromFront()
-	if err != nil {
-		fmt.Print(err)
-	}
-
-	err = r.DequeueFromFront()
-	if err != nil {
-		fmt.Print(err)
-	}
-
-	err = r.DequeueFromFront()
-	if err != nil {
-		fmt.Print(err)
-	}
-
-	fmt.Printf("\nlen of Arr:%d", r.Len())
-
-	r.Display()
 }
