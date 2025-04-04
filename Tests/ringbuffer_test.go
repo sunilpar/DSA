@@ -1,8 +1,7 @@
-package DS
+package Test
 
 import (
 	DS "DSA/DataStructures"
-	"fmt"
 	"testing"
 )
 
@@ -89,5 +88,3 @@ func TestRingBuffer(t *testing.T) {
 		t.Errorf("Expected error on front dequeue from empty buffer, got nil")
 	}
 }
-
-//bug fixed: it was trying to get len but tradtional len will not work on ring buffer since we are inserting value and not deleting but replacing them
