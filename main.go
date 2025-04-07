@@ -16,6 +16,7 @@ func main() {
 	}
 
 	path := Algo.SolveMaze(maze, "X", []int{0, 10}, []int{5, 1})
+
 	fmt.Println(path)
 
 }
