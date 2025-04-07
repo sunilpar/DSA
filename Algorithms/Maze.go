@@ -19,13 +19,17 @@ func walk(maze [][]string, wall string, curr, end []int, seen [][]bool, path [][
 		return false
 	}
 	if maze[curr[0]][curr[1]] == wall {
+		fmt.Printf("inside wall curr[0]:%v curr[1]:%v\n", curr[0], curr[0])
 		return false
 	}
 	if end[0] == curr[0] && end[1] == curr[1] {
+		fmt.Printf(" end !!!!!! should return true curr[0]:%v curr[1]:%v\n", curr[0], curr[1])
 		path = append(path, end)
+		fmt.Printf("\npath:%v\n", path)
 		return true
 	}
 	if seen[curr[0]][curr[1]] {
+		fmt.Printf("inside seen curr[0]:%v curr[1]:%v\n", curr[0], curr[1])
 		return false
 	}
 
@@ -43,6 +47,7 @@ func walk(maze [][]string, wall string, curr, end []int, seen [][]bool, path [][
 		if walk(maze, wall, ncurr, end, seen, path) {
 			return true
 		}
+		fmt.Println(" ")
 	}
 
 	//pop
@@ -56,7 +61,10 @@ func SolveMaze(maze [][]string, wall string, start, end []int) (path [][]int) {
 	for i := range seen {
 		seen[i] = make([]bool, len(maze[0]))
 	}
-	walk(maze, wall, start, end, seen, path)
+	if walk(maze, wall, start, end, seen, path) {
+		fmt.Printf("path:%v", path)
+		return path
+	}
 
-	return path
+	return nil
 }
