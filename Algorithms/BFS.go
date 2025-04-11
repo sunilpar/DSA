@@ -46,7 +46,6 @@ func BFS[T comparable](graph *DS.Graph[T], key T) (*DS.GraphNode[T], []*DS.Graph
 				log.Fatalf("coundn't dequeue!!!\n")
 			}
 			path = append(path, n)
-			fmt.Printf("path %+v\n", path)
 		}
 		node := e.Value.(*DS.GraphNode[T])
 		if node.Value == key {

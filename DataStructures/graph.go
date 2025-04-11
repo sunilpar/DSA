@@ -20,6 +20,7 @@ func CreateGraph[T any]() *Graph[T] {
 		Nodes: list.New(),
 	}
 }
+
 func (g *Graph[T]) Root(value T) *GraphNode[T] {
 	node := &GraphNode[T]{Value: value}
 	g.Nodes.PushFront(node)
