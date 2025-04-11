@@ -28,8 +28,44 @@ func (g *Graph[T]) Root(value T) *GraphNode[T] {
 	return e
 }
 
-func (g *Graph[T]) InsertAFter(gn *GraphNode[T], value T) error {
+// func (g *Graph[T]) Insertafter(gn *GraphNode[T], value T) error {
+//
+//		newNode := &GraphNode[T]{Value: value}
+//		fmt.Print("\nnodes graph:")
+//		for e := g.Nodes.Front(); e != nil; e = e.Next() {
+//			fmt.Printf("%v ", e.Value)
+//			if e.Value == gn {
+//				g.Nodes.InsertAfter(newNode, e)
+//			}
+//		}
+//		fmt.Printf("\n")
+//		gn.Childs = append(gn.Childs, newNode)
+//		return nil
+//	}
+func (g *Graph[T]) Insertafter(gn *GraphNode[T], value T) error {
 	newNode := &GraphNode[T]{Value: value}
+	fmt.Print("\nGraph Nodes:\n")
+
+	for e := g.Nodes.Front(); e != nil; e = e.Next() {
+		prevVal := "nil"
+		nextVal := "nil"
+
+		if e.Prev() != nil {
+			prevVal = fmt.Sprintf("%v", e.Prev().Value.(*GraphNode[T]).Value)
+		}
+		if e.Next() != nil {
+			nextVal = fmt.Sprintf("%v", e.Next().Value.(*GraphNode[T]).Value)
+		}
+
+		currVal := e.Value.(*GraphNode[T]).Value
+		fmt.Printf("Prev: %v <- Curr: %v -> Next: %v\n", prevVal, currVal, nextVal)
+
+		if e.Value == gn {
+			g.Nodes.InsertAfter(newNode, e)
+			fmt.Printf("Inserted new node with value %v after %v\n", newNode.Value, gn.Value)
+		}
+	}
+
 	gn.Childs = append(gn.Childs, newNode)
 	return nil
 }
