@@ -5,44 +5,40 @@ import (
 )
 
 type Node[T any] struct {
-	value T
-	next  *Node[T]
-	prev  *Node[T]
+	Value T
+	Next  *Node[T]
+	Prev  *Node[T]
 }
 
 type LinkedList[T any] struct {
-	head *Node[T]
-	tail *Node[T]
+	Head *Node[T]
+	Tail *Node[T]
 }
 
-func (l *LinkedList[T]) InsertAtFront(value T) {
-	if l.head == nil {
-		newNode := &Node[T]{value: value, next: l.head, prev: nil}
-		l.head = newNode
-		l.tail = newNode
-		fmt.Printf("inserted: %v and node is : %p\n", newNode.value, l.head)
+func (l *LinkedList[T]) InsertAtFront(Value T) {
+	if l.Head == nil {
+		newNode := &Node[T]{Value: Value, Next: l.Head, Prev: nil}
+		l.Head = newNode
+		l.Tail = newNode
 
 	} else {
 
-		newNode := &Node[T]{value: value, next: l.head, prev: nil}
-		l.head.prev = newNode
-		l.head = newNode
-		fmt.Printf("inserted: %v and node is : %p\n", newNode.value, l.head)
+		newNode := &Node[T]{Value: Value, Next: l.Head, Prev: nil}
+		l.Head.Prev = newNode
+		l.Head = newNode
 	}
 }
 
-func (l *LinkedList[T]) Insert(value T) {
-	if l.head == nil {
-		newNode := &Node[T]{value: value, next: l.head, prev: nil}
-		l.tail = newNode
-		l.head = newNode
-		fmt.Printf("inserted: %v and node is : %p\n", newNode.value, l.tail)
+func (l *LinkedList[T]) Insert(Value T) {
+	if l.Head == nil {
+		newNode := &Node[T]{Value: Value, Next: l.Head, Prev: nil}
+		l.Tail = newNode
+		l.Head = newNode
 
 	} else {
-		newNode := &Node[T]{value: value, next: nil, prev: l.tail}
-		l.tail.next = newNode
-		l.tail = newNode
-		fmt.Printf("inserted: %v and node is : %p\n", newNode.value, l.tail)
+		newNode := &Node[T]{Value: Value, Next: nil, Prev: l.Tail}
+		l.Tail.Next = newNode
+		l.Tail = newNode
 	}
 }
 
@@ -50,81 +46,76 @@ func (l *LinkedList[T]) Insert(value T) {
 
 func (l *LinkedList[T]) Delete() error {
 	//del from front
-	if l.head == nil {
+	if l.Head == nil {
 		return fmt.Errorf("cant delete on empty list!!!")
 	} else {
-		if l.head.next == nil {
-			l.head = nil
-			l.tail = nil
+		if l.Head.Next == nil {
+			l.Head = nil
+			l.Tail = nil
 		} else {
-			l.head.next.prev = nil
-			l.head = l.head.next
+			l.Head.Next.Prev = nil
+			l.Head = l.Head.Next
 		}
 
-		//		fmt.Printf("new head is :%p\n", l.head)
+		//		fmt.Printf("new Head is :%p\n", l.Head)
 	}
 	return nil
 }
 
 func (l *LinkedList[T]) DeleteAtEnd() error {
 	//del from end
-	if l.tail == nil {
+	if l.Tail == nil {
 		return fmt.Errorf("cant delete on empty list!!!")
 	} else {
-		if l.tail.prev == nil {
-			l.tail = nil
-			l.head = nil
+		if l.Tail.Prev == nil {
+			l.Tail = nil
+			l.Head = nil
 		} else {
-			l.tail.prev.next = nil
-			l.tail = l.tail.prev
+			l.Tail.Prev.Next = nil
+			l.Tail = l.Tail.Prev
 		}
-
-		//	fmt.Printf("new tail is :%p\n", l.tail)
 	}
 	return nil
 }
 
 func (l LinkedList[T]) Size() int {
-	current := l.head
+	current := l.Head
 	count := 0
 
 	for current != nil {
 		count++
-		current = current.next
+		current = current.Next
 	}
 	return count
 }
 
 func (l *LinkedList[T]) Peek() (T, error) {
 	var zero T
-	if l.head == nil {
+	if l.Head == nil {
 		return zero, fmt.Errorf("cant peek on empty list!!!\n")
 	}
-	return l.head.value, nil
+	return l.Head.Value, nil
 }
 
 func (l *LinkedList[T]) PeekAtEnd() (T, error) {
 	var zero T
-	if l.tail == nil {
+	if l.Tail == nil {
 		return zero, fmt.Errorf("cant peek on empty list!!!\n")
 	}
-	return l.tail.value, nil
+	return l.Tail.Value, nil
 }
 
 func (l *LinkedList[T]) IsEmpty() bool {
-	if l.tail == nil {
+	if l.Tail == nil {
 		return true
 	}
 	return false
 }
 
 func (l LinkedList[T]) Display() {
-	current := l.head
-	fmt.Printf("head was : %v \n", current)
-
+	current := l.Head
 	for current != nil {
-		fmt.Printf("%v ", current.value)
-		current = current.next
+		fmt.Printf("%v ", current.Value)
+		current = current.Next
 	}
-
 }

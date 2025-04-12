@@ -3,77 +3,102 @@ package DS
 import (
 	"container/list"
 	"fmt"
+	"log"
 )
 
 type GraphNode[T any] struct {
-	Value T
-
+	Value  T
 	Childs []*GraphNode[T]
 }
 
-type Graph[T any] struct {
-	Nodes *list.List
+type Graph[T comparable] struct {
+	Nodes *LinkedList[*GraphNode[T]]
 }
 
-func CreateGraph[T any]() *Graph[T] {
+func CreateGraph[T comparable]() *Graph[T] {
 	return &Graph[T]{
-		Nodes: list.New(),
+		Nodes: &LinkedList[*GraphNode[T]]{},
 	}
 }
 
-func (g *Graph[T]) Root(value T) *GraphNode[T] {
+func (g *Graph[T]) Root(value T) error {
+	if g.Nodes.Size() != 0 {
+		return fmt.Errorf("can't add root on non empty graph size of graph:%v ", g.Nodes.Size())
+	}
 	node := &GraphNode[T]{Value: value}
-	g.Nodes.PushFront(node)
-	e := g.Nodes.Front().Value.(*GraphNode[T])
-	return e
+	g.Nodes.InsertAtFront(node)
+	return nil
 }
 
-// func (g *Graph[T]) Insertafter(gn *GraphNode[T], value T) error {
-//
-//		newNode := &GraphNode[T]{Value: value}
-//		fmt.Print("\nnodes graph:")
-//		for e := g.Nodes.Front(); e != nil; e = e.Next() {
-//			fmt.Printf("%v ", e.Value)
-//			if e.Value == gn {
-//				g.Nodes.InsertAfter(newNode, e)
-//			}
-//		}
-//		fmt.Printf("\n")
-//		gn.Childs = append(gn.Childs, newNode)
-//		return nil
-//	}
-func (g *Graph[T]) Insertafter(gn *GraphNode[T], value T) error {
+func (g *Graph[T]) Insertafter(root T, value T) error {
+	gn, _, err := BFS(g, root)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
 	newNode := &GraphNode[T]{Value: value}
-	fmt.Print("\nGraph Nodes:\n")
-
-	for e := g.Nodes.Front(); e != nil; e = e.Next() {
-		prevVal := "nil"
-		nextVal := "nil"
-
-		if e.Prev() != nil {
-			prevVal = fmt.Sprintf("%v", e.Prev().Value.(*GraphNode[T]).Value)
-		}
-		if e.Next() != nil {
-			nextVal = fmt.Sprintf("%v", e.Next().Value.(*GraphNode[T]).Value)
-		}
-
-		currVal := e.Value.(*GraphNode[T]).Value
-		fmt.Printf("Prev: %v <- Curr: %v -> Next: %v\n", prevVal, currVal, nextVal)
-
+	for e := g.Nodes.Head; e != nil; e = e.Next {
 		if e.Value == gn {
-			g.Nodes.InsertAfter(newNode, e)
-			fmt.Printf("Inserted new node with value %v after %v\n", newNode.Value, gn.Value)
+			g.Nodes.Insert(newNode)
+			g.Nodes.Tail.Prev = e
 		}
 	}
-
 	gn.Childs = append(gn.Childs, newNode)
 	return nil
 }
 
 func (g *Graph[T]) Display() {
-	for e := g.Nodes.Front(); e != nil; e = e.Next() {
-		node := e.Value.(*GraphNode[T])
-		fmt.Printf("%v ", node.Value)
+	fmt.Print("\nnodes graphs:vvv\n")
+	for e := g.Nodes.Head; e != nil; e = e.Next {
+		fmt.Printf("%v", e.Value.Value)
+		fmt.Printf("->%+v ", e)
+		fmt.Printf("%p", e)
+		fmt.Printf("\n")
 	}
-	fmt.Printf("\n")
+}
+
+type queue[T comparable] struct {
+	list *list.List
+}
+
+func newQueue[T comparable]() *queue[T] {
+	return &queue[T]{list: list.New()}
+}
+
+func (q *queue[T]) enqueue(v *GraphNode[T]) {
+	q.list.PushBack(v)
+}
+
+func (q *queue[T]) dequeue() (*GraphNode[T], bool) {
+	if q.list.Len() == 0 {
+		return nil, false
+	}
+	elem := q.list.Front()
+	q.list.Remove(elem)
+	return elem.Value.(*GraphNode[T]), true
+}
+
+func BFS[T comparable](graph *Graph[T], key T) (*GraphNode[T], []*GraphNode[T], error) {
+	if graph.Nodes.Size() == 0 {
+		return nil, nil, fmt.Errorf("Graph is empty:%v\n", graph)
+	}
+	elem := graph.Nodes.Head
+	head := elem.Value
+	q := newQueue[T]()
+	q.enqueue(head)
+	path := []*GraphNode[T]{}
+	path = append(path, head)
+	for {
+		node, ok := q.dequeue()
+		if !ok {
+			break
+		}
+		path = append(path, node)
+		if node.Value == key {
+			return node, path, nil
+		}
+		for _, c := range node.Childs {
+			q.enqueue(c)
+		}
+	}
+	return nil, nil, fmt.Errorf("coudn't find %+v\n", key)
 }
