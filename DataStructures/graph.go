@@ -48,17 +48,13 @@ func (g *Graph[T]) Insertafter(root T, value T) error {
 
 func (g *Graph[T]) Delete(value T) error {
 	for e := g.Nodes.Head; e != nil; e = e.Next {
-		// if g.Nodes.Tail.Value.Value == value {
-		// 	// g.Display()
-		// 	fmt.Printf("at end v:%v\n", g.Nodes.Tail.Value.Value)
-		// 	g.Display()
-		// 	return nil
-		// }
-		fmt.Printf("%v", e.Next.Value.Value)
 		if e.Next.Value.Value == value {
-			fmt.Printf("->e.next.value -> type:%T -> value:%v\n", e.Next.Value.Value, e.Next.Value.Value)
 			for _, c := range e.Next.Value.Childs {
-				fmt.Printf(" |->%p", c)
+				for ea := g.Nodes.Head; ea != nil; ea = ea.Next {
+					if ea.Value.Value == c.Value {
+						ea.Prev = nil
+					}
+				}
 			}
 			fmt.Print("\n")
 			e.Next = e.Next.Next
