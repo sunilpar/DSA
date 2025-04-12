@@ -13,6 +13,7 @@ func main() {
 	g.Insertafter(2, 5)
 	g.Insertafter(3, 6)
 	g.Insertafter(3, 7)
+	g.Delete(2)
 	g.Display()
 
 }
