@@ -47,7 +47,21 @@ func (g *Graph[T]) Insertafter(root T, value T) error {
 }
 
 func (g *Graph[T]) Delete(value T) error {
-	for e := g.Nodes.Head; e != nil; e = e.Next {
+	if h := g.Nodes.Head.Value; h.Value == value || g.Nodes.Size() == 1 {
+		err := g.DeleteRoot(value)
+		if err != nil {
+			return fmt.Errorf("%v", err)
+		}
+		return nil
+	}
+	for e := g.Nodes.Head; e.Next != nil; e = e.Next {
+		// if h := g.Nodes.Head.Value; h.Value == value {
+		// 	err := g.DeleteRoot(value)
+		// 	if err != nil {
+		// 		return fmt.Errorf("%v", err)
+		// 	}
+		// 	return nil
+		// }
 		if e.Next.Value.Value == value {
 			for _, c := range e.Next.Value.Childs {
 				for ea := g.Nodes.Head; ea != nil; ea = ea.Next {
@@ -56,13 +70,26 @@ func (g *Graph[T]) Delete(value T) error {
 					}
 				}
 			}
-			fmt.Print("\n")
 			e.Next = e.Next.Next
 			return nil
 		}
-		fmt.Print("\n")
 	}
-	return nil
+	return fmt.Errorf("reached nil couldn't find :%v\n", value)
+}
+
+func (g *Graph[T]) DeleteRoot(value T) error {
+	if h := g.Nodes.Head.Value; h.Value == value {
+		for _, c := range h.Childs {
+			for ea := g.Nodes.Head; ea != nil; ea = ea.Next {
+				if ea.Value.Value == c.Value {
+					ea.Prev = nil
+				}
+			}
+		}
+		g.Nodes.Head = g.Nodes.Head.Next
+		return nil
+	}
+	return fmt.Errorf("couldn't match value of head to root:%v", value)
 }
 
 func (g *Graph[T]) Display() {
