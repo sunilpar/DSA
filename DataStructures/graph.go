@@ -55,13 +55,6 @@ func (g *Graph[T]) Delete(value T) error {
 		return nil
 	}
 	for e := g.Nodes.Head; e.Next != nil; e = e.Next {
-		// if h := g.Nodes.Head.Value; h.Value == value {
-		// 	err := g.DeleteRoot(value)
-		// 	if err != nil {
-		// 		return fmt.Errorf("%v", err)
-		// 	}
-		// 	return nil
-		// }
 		if e.Next.Value.Value == value {
 			for _, c := range e.Next.Value.Childs {
 				for ea := g.Nodes.Head; ea != nil; ea = ea.Next {
