@@ -23,6 +23,10 @@ func (s *Stack[T]) Pop() (T, error) {
 	return v, nil
 }
 
+func (s *Stack[T]) Size() int {
+	return s.L.Size()
+}
+
 func (s *Stack[T]) Peek() (T, error) {
 	var zero T
 	v, err := s.L.PeekAtEnd()
