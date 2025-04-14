@@ -29,7 +29,6 @@ func (g *Graph[T]) Root(value T) error {
 }
 
 func (g *Graph[T]) Insertafter(root T, value T) error {
-	//there was no need for bfs on insertion because of my datatype use i improved insertion time from 450ns to 110ns
 	newNode := &GraphNode[T]{Value: value}
 	gn := &GraphNode[T]{}
 	for e := g.Nodes.Head; e != nil; e = e.Next {

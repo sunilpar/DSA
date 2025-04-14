@@ -37,7 +37,7 @@ func BFS[T comparable](graph *DS.Graph[T], key T) (*DS.GraphNode[T], []*DS.Graph
 	q := newQueue[T]()
 	q.enqueue(head)
 	path := []*DS.GraphNode[T]{}
-	path = append(path, head)
+	// path = append(path, head)
 
 	for e := q.list.Front(); e != nil; e = e.Next() {
 		if e != q.list.Front() {
