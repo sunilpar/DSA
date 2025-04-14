@@ -102,7 +102,7 @@ func TestSolveMaze(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			path := Algo.SolveMaze(tt.maze, tt.wall, tt.start, tt.end)
-			got := len(path) > 0 && reflect.DeepEqual(path[len(path)-1], tt.end) //reflect.deeepeual checks the last value of slice with end to ensure path is correct
+			got := len(path) > 0 && reflect.DeepEqual(path[len(path)-1], tt.end)
 			if got != tt.expected {
 				t.Errorf("expected path found: %v, got: %v, path: %v", tt.expected, got, path)
 			}
