@@ -44,7 +44,6 @@ func (g *Graph[T]) Insertafter(root T, value T) error {
 }
 
 func (g *Graph[T]) Delete(value T) error {
-	//bug while deleting the next gets updated but memoery isn't free so dfs can access the node
 	if h := g.Nodes.Head.Value; h.Value == value || g.Nodes.Size() == 1 {
 		err := g.DeleteRoot(value)
 		if err != nil {

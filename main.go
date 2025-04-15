@@ -21,7 +21,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	f, p, err := Algo.DFS(g, 2)
+	f, p, err := Algo.BFS(g, 2)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}

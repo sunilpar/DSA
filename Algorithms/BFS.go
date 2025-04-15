@@ -32,8 +32,7 @@ func BFS[T comparable](graph *DS.Graph[T], key T) (*DS.GraphNode[T], []*DS.Graph
 	if graph.Nodes.Size() == 0 {
 		return nil, nil, fmt.Errorf("Graph is empty:%v\n", graph)
 	}
-	elem := graph.Nodes.Head
-	head := elem.Value
+	head := graph.Nodes.Head.Value
 	q := newQueue[T]()
 	q.enqueue(head)
 	path := []*DS.GraphNode[T]{}
