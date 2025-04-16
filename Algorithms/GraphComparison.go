@@ -1,8 +1,5 @@
 package Algo
 
-//uses bfs to compare graph with any number of node
-//and tells wether it's structurally and equal in value
-
 import (
 	DS "DSA/DataStructures"
 	"container/list"
@@ -63,12 +60,6 @@ func CompareGraphs[T comparable](a *DS.Graph[T], b *DS.Graph[T]) (bool, error) {
 	e1 := q1.list.Front()
 	e2 := q2.list.Front()
 	for {
-		if e1 == nil && e2 == nil {
-			break
-		} else if e1 == nil || e2 == nil {
-			return false, nil
-		}
-
 		if e1 != q1.list.Front() && e2 != q2.list.Front() {
 			n1, err := q1.dequeue1()
 			if err == false {
@@ -85,6 +76,11 @@ func CompareGraphs[T comparable](a *DS.Graph[T], b *DS.Graph[T]) (bool, error) {
 			if e1.Value.(*DS.GraphNode[T]).Value != e2.Value.(*DS.GraphNode[T]).Value {
 				return false, nil
 			}
+		}
+		if e1 == nil && e2 == nil {
+			break
+		} else if e1 == nil || e2 == nil {
+			return false, nil
 		}
 
 		node1 := e1.Value.(*DS.GraphNode[T])

@@ -31,13 +31,12 @@ func main() {
 	h.Insertafter(2, 4)
 	h.Insertafter(2, 5)
 	h.Insertafter(3, 6)
-	h.Insertafter(3, 8)
+	h.Insertafter(3, 7)
 
 	err = h.Delete(2)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-
 	h.Display()
 
 	s, err := Algo.CompareGraphs(g, h)
