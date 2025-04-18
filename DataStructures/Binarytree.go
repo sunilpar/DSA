@@ -44,7 +44,6 @@ func (g *Btree[T]) InsertRight(root T, value T) error {
 		}
 	}
 	return fmt.Errorf("unknown parent node :%v\n", root)
-
 }
 
 func (g *Btree[T]) InsertLeft(root T, value T) error {
