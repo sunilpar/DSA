@@ -36,11 +36,11 @@ func (g *Graph[T]) Insertafter(root T, value T) error {
 			gn = e.Value
 			g.Nodes.Insert(newNode)
 			g.Nodes.Tail.Prev = e
-			break
+			gn.Childs = append(gn.Childs, newNode)
+			return nil
 		}
 	}
-	gn.Childs = append(gn.Childs, newNode)
-	return nil
+	return fmt.Errorf("unknown parent node :%v\n", root)
 }
 
 func (g *Graph[T]) Delete(value T) error {
