@@ -2,10 +2,6 @@ package DS
 
 import "fmt"
 
-//binary tree with left and right as children
-//binarytreenode as node type
-//need to write search insertion deletion display with dfs
-
 type BinaryNode[T any] struct {
 	Value T
 	Right *BinaryNode[T]
@@ -45,7 +41,6 @@ func (g *Btree[T]) InsertRight(root T, value T) error {
 	}
 	return fmt.Errorf("unknown parent node :%v\n", root)
 }
-
 func (g *Btree[T]) InsertLeft(root T, value T) error {
 	newNode := &BinaryNode[T]{Value: value}
 	gn := &BinaryNode[T]{}
@@ -61,6 +56,26 @@ func (g *Btree[T]) InsertLeft(root T, value T) error {
 	return fmt.Errorf("unknown parent node :%v\n", root)
 
 }
+
+// need to make it so that it uses binary search tec to display items
+func (g *Btree[T]) BinaryDisplay() {
+}
+
+// need to delete and replace with the largest on left or smallest in right
+func (g *Btree[T]) Delete() {
+}
+
+// need to make it so that right side <= || large in left side
+func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
+	if n.Left == nil && n.Right == nil {
+		//do insertion after seing
+	}
+	//do comparision for <= else >
+	//recurse left and right accordfingly
+
+	return nil
+}
+
 func (g *Btree[T]) Display() {
 	fmt.Print("\nnodes graphs:vvv\n")
 	for e := g.Nodes.Head; e != nil; e = e.Next {
