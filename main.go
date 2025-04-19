@@ -2,36 +2,41 @@ package main
 
 import (
 	DS "DSA/DataStructures"
+	"fmt"
 	"log"
 )
 
 func main() {
 	g := DS.CreateBtree[int]()
-	err := g.Root(1)
+	H, err := g.Root(100)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.InsertLeft(1, 2)
+	fmt.Printf("<%v>\n", H.Value)
+
+	g.Insert(H, 20)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.InsertLeft(2, 4)
+	g.Insert(H, 30)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.InsertRight(2, 5)
+
+	g.Insert(H, 0)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.InsertRight(1, 3)
+	g.Insert(H, 10)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.InsertLeft(3, 6)
+
+	g.Insert(H, 25)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.InsertRight(3, 7)
+	g.Insert(H, 50)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}

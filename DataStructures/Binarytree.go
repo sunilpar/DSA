@@ -2,29 +2,33 @@ package DS
 
 import "fmt"
 
-type BinaryNode[T any] struct {
+type Ordered interface {
+	~int | ~int32 | ~int64 | ~float32 | ~float64 | ~string
+}
+
+type BinaryNode[T Ordered] struct {
 	Value T
 	Right *BinaryNode[T]
 	Left  *BinaryNode[T]
 }
 
-type Btree[T comparable] struct {
+type Btree[T Ordered] struct {
 	Nodes *LinkedList[*BinaryNode[T]]
 }
 
-func CreateBtree[T comparable]() *Btree[T] {
+func CreateBtree[T Ordered]() *Btree[T] {
 	return &Btree[T]{
 		Nodes: &LinkedList[*BinaryNode[T]]{},
 	}
 }
 
-func (g *Btree[T]) Root(value T) error {
+func (g *Btree[T]) Root(value T) (*BinaryNode[T], error) {
 	if g.Nodes.Size() != 0 {
-		return fmt.Errorf("can't add root on non empty graph size of graph:%v ", g.Nodes.Size())
+		return nil, fmt.Errorf("can't add root on non empty graph size of graph:%v ", g.Nodes.Size())
 	}
 	node := &BinaryNode[T]{Value: value}
 	g.Nodes.InsertAtFront(node)
-	return nil
+	return g.Nodes.Head.Value, nil
 }
 
 func (g *Btree[T]) InsertRight(root T, value T) error {
@@ -57,10 +61,6 @@ func (g *Btree[T]) InsertLeft(root T, value T) error {
 
 }
 
-// need to make it so that it uses binary search tec to display items
-func (g *Btree[T]) BinaryDisplay() {
-}
-
 // need to delete and replace with the largest on left or smallest in right
 func (g *Btree[T]) Delete() {
 }
@@ -68,12 +68,37 @@ func (g *Btree[T]) Delete() {
 // need to make it so that right side <= || large in left side
 func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
 	if n.Left == nil && n.Right == nil {
-		//do insertion after seing
+		Newnode := &BinaryNode[T]{Value: v}
+		if v <= n.Value {
+			n.Left = Newnode
+			fmt.Printf("%v:<--\n", v)
+		} else {
+			n.Right = Newnode
+			fmt.Printf("-->:%v\n", v)
+		}
+		g.Nodes.Insert(Newnode)
+		return nil
+	} else {
+		if v <= n.Value {
+			if n.Left == nil {
+				Newnode := &BinaryNode[T]{Value: v}
+				n.Left = Newnode
+				fmt.Printf("%v:<--\n", v)
+				g.Nodes.Insert(Newnode)
+				return nil
+			}
+			return g.Insert(n.Left, v)
+		} else {
+			if n.Right == nil {
+				Newnode := &BinaryNode[T]{Value: v}
+				n.Right = Newnode
+				fmt.Printf("-->:%v\n", v)
+				g.Nodes.Insert(Newnode)
+				return nil
+			}
+			return g.Insert(n.Right, v)
+		}
 	}
-	//do comparision for <= else >
-	//recurse left and right accordfingly
-
-	return nil
 }
 
 func (g *Btree[T]) Display() {
