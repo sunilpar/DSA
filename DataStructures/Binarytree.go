@@ -31,36 +31,6 @@ func (g *Btree[T]) Root(value T) (*BinaryNode[T], error) {
 	return g.Nodes.Head.Value, nil
 }
 
-func (g *Btree[T]) InsertRight(root T, value T) error {
-	newNode := &BinaryNode[T]{Value: value}
-	gn := &BinaryNode[T]{}
-	for e := g.Nodes.Head; e != nil; e = e.Next {
-		if e.Value.Value == root {
-			gn = e.Value
-			g.Nodes.Insert(newNode)
-			g.Nodes.Tail.Prev = e
-			gn.Right = newNode
-			return nil
-		}
-	}
-	return fmt.Errorf("unknown parent node :%v\n", root)
-}
-func (g *Btree[T]) InsertLeft(root T, value T) error {
-	newNode := &BinaryNode[T]{Value: value}
-	gn := &BinaryNode[T]{}
-	for e := g.Nodes.Head; e != nil; e = e.Next {
-		if e.Value.Value == root {
-			gn = e.Value
-			g.Nodes.Insert(newNode)
-			g.Nodes.Tail.Prev = e
-			gn.Left = newNode
-			return nil
-		}
-	}
-	return fmt.Errorf("unknown parent node :%v\n", root)
-
-}
-
 // need to delete and replace with the largest on left or smallest in right
 func (g *Btree[T]) Delete() {
 }
