@@ -8,13 +8,13 @@ import (
 
 func main() {
 	g := DS.CreateBtree[int]()
-	H, err := g.Root(100)
+	H, err := g.Root(20)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
 	fmt.Printf("<%v>\n", H.Value)
 
-	g.Insert(H, 20)
+	g.Insert(H, 10)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
@@ -27,7 +27,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.Insert(H, 10)
+	g.Insert(H, 19)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
+	g.Insert(H, 11)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
@@ -36,7 +40,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.Insert(H, 50)
+	g.Insert(H, 40)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
+	g.Insert(H, 25)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}

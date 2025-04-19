@@ -32,10 +32,12 @@ func (g *Btree[T]) Root(value T) (*BinaryNode[T], error) {
 }
 
 // need to delete and replace with the largest on left or smallest in right
+// case 1 no child
+// case 2 one child
+// case 3 2 child and need to find largest element on right side to replace on parent node
 func (g *Btree[T]) Delete() {
 }
 
-// need to make it so that right side <= || large in left side
 func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
 	if n.Left == nil && n.Right == nil {
 		Newnode := &BinaryNode[T]{Value: v}
