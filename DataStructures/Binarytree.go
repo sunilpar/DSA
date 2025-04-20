@@ -78,22 +78,25 @@ func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
 	if n == nil {
 		return fmt.Errorf("cannot insert into a nil node")
 	}
-	var target **BinaryNode[T]
+
+	var child **BinaryNode[T]
 	if v <= n.Value {
-		target = &n.Left
-		fmt.Printf("%v:<--\n", v)
+		child = &n.Left
 	} else {
-		target = &n.Right
-		fmt.Printf("-->:%v\n", v)
+		child = &n.Right
 	}
-	if *target == nil {
-		newNode := &BinaryNode[T]{Value: v, Prev: n}
-		*target = newNode
+
+	if *child == nil {
+		newNode := &BinaryNode[T]{
+			Value: v,
+			Prev:  n,
+		}
+		*child = newNode
 		g.Nodes.Insert(newNode)
 		return nil
 	}
 
-	return g.Insert(*target, v)
+	return g.Insert(*child, v)
 }
 
 func (g *Btree[T]) Display() {
