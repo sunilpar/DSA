@@ -39,39 +39,61 @@ func (g *Btree[T]) Root(value T) (*BinaryNode[T], error) {
 func (g *Btree[T]) Delete() {
 }
 
+// func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
+// 	if n.Left == nil && n.Right == nil {
+// 		Newnode := &BinaryNode[T]{Value: v}
+// 		if v <= n.Value {
+// 			n.Left = Newnode
+// 			fmt.Printf("%v:<--\n", v)
+// 		} else {
+// 			n.Right = Newnode
+// 			fmt.Printf("-->:%v\n", v)
+// 		}
+// 		g.Nodes.Insert(Newnode)
+// 		return nil
+// 	} else {
+// 		if v <= n.Value {
+// 			if n.Left == nil {
+// 				Newnode := &BinaryNode[T]{Value: v}
+// 				n.Left = Newnode
+// 				fmt.Printf("%v:<--\n", v)
+// 				g.Nodes.Insert(Newnode)
+// 				return nil
+// 			}
+// 			return g.Insert(n.Left, v)
+// 		} else {
+// 			if n.Right == nil {
+// 				Newnode := &BinaryNode[T]{Value: v}
+// 				n.Right = Newnode
+// 				fmt.Printf("-->:%v\n", v)
+// 				g.Nodes.Insert(Newnode)
+// 				return nil
+// 			}
+// 			return g.Insert(n.Right, v)
+// 		}
+// 	}
+// }
+
 func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
-	if n.Left == nil && n.Right == nil {
-		Newnode := &BinaryNode[T]{Value: v}
-		if v <= n.Value {
-			n.Left = Newnode
-			fmt.Printf("%v:<--\n", v)
-		} else {
-			n.Right = Newnode
-			fmt.Printf("-->:%v\n", v)
-		}
-		g.Nodes.Insert(Newnode)
-		return nil
-	} else {
-		if v <= n.Value {
-			if n.Left == nil {
-				Newnode := &BinaryNode[T]{Value: v}
-				n.Left = Newnode
-				fmt.Printf("%v:<--\n", v)
-				g.Nodes.Insert(Newnode)
-				return nil
-			}
-			return g.Insert(n.Left, v)
-		} else {
-			if n.Right == nil {
-				Newnode := &BinaryNode[T]{Value: v}
-				n.Right = Newnode
-				fmt.Printf("-->:%v\n", v)
-				g.Nodes.Insert(Newnode)
-				return nil
-			}
-			return g.Insert(n.Right, v)
-		}
+	if n == nil {
+		return fmt.Errorf("cannot insert into a nil node")
 	}
+	var target **BinaryNode[T]
+	if v <= n.Value {
+		target = &n.Left
+		fmt.Printf("%v:<--\n", v)
+	} else {
+		target = &n.Right
+		fmt.Printf("-->:%v\n", v)
+	}
+	if *target == nil {
+		newNode := &BinaryNode[T]{Value: v, Prev: n}
+		*target = newNode
+		g.Nodes.Insert(newNode)
+		return nil
+	}
+
+	return g.Insert(*target, v)
 }
 
 func (g *Btree[T]) Display() {
