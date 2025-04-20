@@ -44,10 +44,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.Insert(H, 25)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
 
 	g.Display()
 

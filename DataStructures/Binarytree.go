@@ -8,6 +8,7 @@ type Ordered interface {
 
 type BinaryNode[T Ordered] struct {
 	Value T
+	Prev  *BinaryNode[T]
 	Right *BinaryNode[T]
 	Left  *BinaryNode[T]
 }
