@@ -103,7 +103,7 @@ func (g *Btree[T]) Display() {
 	fmt.Print("\nnodes graphs:vvv\n")
 	for e := g.Nodes.Head; e != nil; e = e.Next {
 		fmt.Printf("%v", e.Value.Value)
-		fmt.Printf("->%+v ", e.Value)
+		fmt.Printf("->%+v \t", e.Value)
 		fmt.Printf("%p", e.Value)
 		fmt.Printf("\n")
 	}
