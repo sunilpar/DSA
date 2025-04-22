@@ -45,11 +45,10 @@ func main() {
 		log.Fatalf("error: %s\n", err.Error())
 	}
 
-	f, err := g.Search(H, 40)
+	err = g.Delete(H, 0)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	fmt.Printf("found:%v\n", f.Value)
 
 	g.Display()
 

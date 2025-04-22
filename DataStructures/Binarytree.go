@@ -1,6 +1,9 @@
 package DS
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 type Ordered interface {
 	~int | ~int32 | ~int64 | ~float32 | ~float64 | ~string
@@ -40,19 +43,33 @@ func (g *Btree[T]) Search(n *BinaryNode[T], v T) (*BinaryNode[T], error) {
 		return n, nil
 	}
 	if v <= n.Value {
-		fmt.Printf("going left <--%v\n", n.Value)
 		return g.Search(n.Left, v)
 	} else {
-		fmt.Printf("going right -->%v\n", n.Value)
 		return g.Search(n.Right, v)
 	}
 }
 
-// need to delete and replace with the largest on left or smallest in right
-// case 1 no child
-// case 2 one child
-// case 3 2 child and need to find largest element on right side to replace on parent node
-func (g *Btree[T]) Delete() {
+func (g *Btree[T]) Delete(n *BinaryNode[T], v T) error {
+	dn, err := g.Search(n, v)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
+	if dn.Left == nil {
+		if dn.Right == nil {
+			//0 child
+			if dn.Prev.Right == dn {
+				dn.Prev.Right = nil
+			} else {
+				dn.Prev.Left = nil
+			}
+			fmt.Printf("deleted :%v\n", dn.Value)
+			dn = nil
+			return nil
+		}
+		//1 child
+	}
+	//2 child
+	return nil
 }
 
 func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {

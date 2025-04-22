@@ -4,13 +4,13 @@ import (
 	"fmt"
 )
 
-type Node[T any] struct {
+type Node[T comparable] struct {
 	Value T
 	Next  *Node[T]
 	Prev  *Node[T]
 }
 
-type LinkedList[T any] struct {
+type LinkedList[T comparable] struct {
 	Head *Node[T]
 	Tail *Node[T]
 }
@@ -42,8 +42,6 @@ func (l *LinkedList[T]) Insert(Value T) {
 	}
 }
 
-// del functions
-
 func (l *LinkedList[T]) Delete() error {
 	//del from front
 	if l.Head == nil {
@@ -56,8 +54,6 @@ func (l *LinkedList[T]) Delete() error {
 			l.Head.Next.Prev = nil
 			l.Head = l.Head.Next
 		}
-
-		//		fmt.Printf("new Head is :%p\n", l.Head)
 	}
 	return nil
 }
@@ -76,6 +72,17 @@ func (l *LinkedList[T]) DeleteAtEnd() error {
 		}
 	}
 	return nil
+}
+func (l *LinkedList[T]) DeleteM(m T) error {
+	for e := l.Head; e != nil; e = e.Next {
+		if e.Value == m {
+			e.Prev.Next = e.Next
+			e.Next.Prev = e.Prev
+			e = nil
+			return nil
+		}
+	}
+	return fmt.Errorf("value %v not found in the list", m)
 }
 
 func (l LinkedList[T]) Size() int {
