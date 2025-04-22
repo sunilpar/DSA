@@ -50,6 +50,10 @@ func main() {
 		log.Fatalf("error: %s\n", err.Error())
 	}
 
+	g.Insert(H, 0)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
 	g.Display()
 
 }

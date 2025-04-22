@@ -4,41 +4,45 @@ import (
 	"fmt"
 )
 
-type Node[T comparable] struct {
+type Node[T any] struct {
 	Value T
 	Next  *Node[T]
 	Prev  *Node[T]
 }
 
-type LinkedList[T comparable] struct {
+type LinkedList[T any] struct {
 	Head *Node[T]
 	Tail *Node[T]
 }
 
-func (l *LinkedList[T]) InsertAtFront(Value T) {
+func (l *LinkedList[T]) InsertAtFront(Value T) *Node[T] {
 	if l.Head == nil {
 		newNode := &Node[T]{Value: Value, Next: l.Head, Prev: nil}
 		l.Head = newNode
 		l.Tail = newNode
+		return newNode
 
 	} else {
 
 		newNode := &Node[T]{Value: Value, Next: l.Head, Prev: nil}
 		l.Head.Prev = newNode
 		l.Head = newNode
+		return newNode
 	}
 }
 
-func (l *LinkedList[T]) Insert(Value T) {
+func (l *LinkedList[T]) Insert(Value T) *Node[T] {
 	if l.Head == nil {
 		newNode := &Node[T]{Value: Value, Next: l.Head, Prev: nil}
 		l.Tail = newNode
 		l.Head = newNode
+		return newNode
 
 	} else {
 		newNode := &Node[T]{Value: Value, Next: nil, Prev: l.Tail}
 		l.Tail.Next = newNode
 		l.Tail = newNode
+		return newNode
 	}
 }
 
@@ -73,17 +77,18 @@ func (l *LinkedList[T]) DeleteAtEnd() error {
 	}
 	return nil
 }
-func (l *LinkedList[T]) DeleteM(m T) error {
-	for e := l.Head; e != nil; e = e.Next {
-		if e.Value == m {
-			e.Prev.Next = e.Next
-			e.Next.Prev = e.Prev
-			e = nil
-			return nil
-		}
-	}
-	return fmt.Errorf("value %v not found in the list", m)
-}
+
+// func (l *LinkedList[T]) DeleteM(m T) error {
+// 	for e := l.Head; e != nil; e = e.Next {
+// 		if e.Value == m {
+// 			e.Prev.Next = e.Next
+// 			e.Next.Prev = e.Prev
+// 			e = nil
+// 			return nil
+// 		}
+// 	}
+// 	return fmt.Errorf("value %v not found in the list", m)
+// }
 
 func (l LinkedList[T]) Size() int {
 	current := l.Head

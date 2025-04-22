@@ -14,6 +14,7 @@ type BinaryNode[T Ordered] struct {
 	Prev  *BinaryNode[T]
 	Right *BinaryNode[T]
 	Left  *BinaryNode[T]
+	// ListNode *Node[*BinaryNode[T]]
 }
 
 type Btree[T Ordered] struct {
@@ -63,7 +64,9 @@ func (g *Btree[T]) Delete(n *BinaryNode[T], v T) error {
 				dn.Prev.Left = nil
 			}
 			fmt.Printf("deleted :%v\n", dn.Value)
-			dn = nil
+			// if dn.ListNode != nil {
+			// 	dn.ListNode.Value = nil
+			// }
 			return nil
 		}
 		//1 child
@@ -96,6 +99,33 @@ func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
 
 	return g.Insert(*child, v)
 }
+
+// func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
+// 	if n == nil {
+// 		return fmt.Errorf("cannot insert into a nil node")
+// 	}
+//
+// 	var child **BinaryNode[T]
+// 	if v <= n.Value {
+// 		child = &n.Left
+// 	} else {
+// 		child = &n.Right
+// 	}
+//
+// 	if *child == nil {
+// 		newNode := &BinaryNode[T]{
+// 			Value: v,
+// 			Prev:  n,
+// 		}
+// 		listNode := g.Nodes.Insert(newNode)
+// 		newNode.ListNode = listNode
+//
+// 		*child = newNode
+// 		return nil
+// 	}
+//
+// 	return g.Insert(*child, v)
+// }
 
 func (g *Btree[T]) Display() {
 	fmt.Print("\nnodes graphs:vvv\n")
