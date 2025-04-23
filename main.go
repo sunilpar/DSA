@@ -45,15 +45,11 @@ func main() {
 		log.Fatalf("error: %s\n", err.Error())
 	}
 
-	err = g.Delete(H, 30)
+	err = g.Delete(H, 20)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
 
-	g.Insert(H, 25)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
 	g.Display()
 
 }

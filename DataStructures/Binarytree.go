@@ -38,7 +38,7 @@ func (g *Btree[T]) Root(value T) (*BinaryNode[T], error) {
 
 func (g *Btree[T]) Search(n *BinaryNode[T], v T) (*BinaryNode[T], error) {
 	if n == nil {
-		return nil, fmt.Errorf("cannot search into a nil node")
+		return nil, fmt.Errorf("couldn't find the node reached nil!!")
 	}
 	if v == n.Value {
 		return n, nil
@@ -84,19 +84,12 @@ func (g *Btree[T]) Delete(n *BinaryNode[T], v T) error {
 		return nil
 	}
 	//2 child
-	//masive edge case NOTE: reduce search into smaller search and call itself
 	c, err := g.SearchLargeChild(dn.Left)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	fmt.Printf("deleting=>%v\n", dn.Value)
-	fmt.Printf("found =>%v\n", c.Value)
 	dn.Value = c.Value
-	if c.Prev == dn {
-		dn.Left = nil
-	}
-	c.Prev.Left = nil
-	c.Prev = nil
+	g.Delete(c, c.Value)
 	return nil
 }
 
