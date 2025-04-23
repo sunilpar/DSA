@@ -12,8 +12,8 @@ type Ordered interface {
 type BinaryNode[T Ordered] struct {
 	Value T
 	Prev  *BinaryNode[T]
-	Right *BinaryNode[T]
 	Left  *BinaryNode[T]
+	Right *BinaryNode[T]
 	// ListNode *Node[*BinaryNode[T]]
 }
 
@@ -55,24 +55,59 @@ func (g *Btree[T]) Delete(n *BinaryNode[T], v T) error {
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	if dn.Left == nil {
-		if dn.Right == nil {
+	if dn.Left == nil || dn.Right == nil {
+		if dn.Right == nil && dn.Left == nil {
 			//0 child
 			if dn.Prev.Right == dn {
 				dn.Prev.Right = nil
 			} else {
 				dn.Prev.Left = nil
 			}
-			fmt.Printf("deleted :%v\n", dn.Value)
-			// if dn.ListNode != nil {
-			// 	dn.ListNode.Value = nil
-			// }
+			fmt.Printf("deleted node with no child:%v\n", dn.Value)
 			return nil
 		}
 		//1 child
+		c := &BinaryNode[T]{}
+		if dn.Right == nil {
+			c = dn.Left
+		} else {
+			c = dn.Right
+		}
+		if dn.Prev.Right == dn {
+			dn.Prev.Right = c
+			c.Prev = dn.Prev
+		} else {
+			dn.Prev.Left = c
+			c.Prev = dn.Prev
+		}
+		fmt.Printf("deleted node with 1 child:%v\n", dn.Value)
+		return nil
 	}
 	//2 child
+	//masive edge case NOTE: reduce search into smaller search and call itself
+	c, err := g.SearchLargeChild(dn.Left)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
+	fmt.Printf("deleting=>%v\n", dn.Value)
+	fmt.Printf("found =>%v\n", c.Value)
+	dn.Value = c.Value
+	if c.Prev == dn {
+		dn.Left = nil
+	}
+	c.Prev.Left = nil
+	c.Prev = nil
 	return nil
+}
+
+func (g *Btree[T]) SearchLargeChild(dn *BinaryNode[T]) (*BinaryNode[T], error) {
+	if dn == nil {
+		return nil, fmt.Errorf("nil node")
+	}
+	if dn.Right == nil {
+		return dn, nil
+	}
+	return g.SearchLargeChild(dn.Right)
 }
 
 func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
@@ -99,33 +134,6 @@ func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
 
 	return g.Insert(*child, v)
 }
-
-// func (g *Btree[T]) Insert(n *BinaryNode[T], v T) error {
-// 	if n == nil {
-// 		return fmt.Errorf("cannot insert into a nil node")
-// 	}
-//
-// 	var child **BinaryNode[T]
-// 	if v <= n.Value {
-// 		child = &n.Left
-// 	} else {
-// 		child = &n.Right
-// 	}
-//
-// 	if *child == nil {
-// 		newNode := &BinaryNode[T]{
-// 			Value: v,
-// 			Prev:  n,
-// 		}
-// 		listNode := g.Nodes.Insert(newNode)
-// 		newNode.ListNode = listNode
-//
-// 		*child = newNode
-// 		return nil
-// 	}
-//
-// 	return g.Insert(*child, v)
-// }
 
 func (g *Btree[T]) Display() {
 	fmt.Print("\nnodes graphs:vvv\n")
