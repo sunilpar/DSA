@@ -7,45 +7,30 @@ import (
 )
 
 func main() {
-	g := DS.CreateBtree[int]()
-	H, err := g.Root(20)
+	g := DS.CreateBtree[string]()
+	H, err := g.Root("sunil")
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
 	fmt.Printf("<%v>\n", H.Value)
 
-	g.Insert(H, 10)
+	g.Insert(H, "left hand")
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.Insert(H, 30)
+	g.Insert(H, "righthand")
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-
-	g.Insert(H, 0)
+	g.Insert(H, "body")
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.Insert(H, 19)
+	g.Insert(H, "left leg")
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.Insert(H, 11)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
-
-	g.Insert(H, 25)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
-	g.Insert(H, 40)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
-
-	err = g.Delete(H, 20)
+	g.Insert(H, "right leg")
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
