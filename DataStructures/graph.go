@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+//should do this with adj matrix or adj list
+
 type GraphNode[T any] struct {
 	Value  T
 	Childs []*GraphNode[T]
