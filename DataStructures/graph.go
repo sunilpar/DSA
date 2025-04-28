@@ -6,7 +6,7 @@ import (
 
 //should do this with adj matrix or adj list
 //these functions need to do n2 operation every time
-//these funciton have child node that is very big
+//rewriting graph data structure to implement bfs and dfs as well
 
 type GraphNode[T any] struct {
 	Value  T
