@@ -4,10 +4,6 @@ import (
 	"fmt"
 )
 
-//should do this with adj matrix or adj list
-//these functions need to do n2 operation every time
-//rewriting graph data structure to implement bfs and dfs as well
-
 type GraphNode[T any] struct {
 	Value  T
 	Childs []*GraphNode[T]
