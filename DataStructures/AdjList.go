@@ -13,3 +13,7 @@ type ListEdge[T any] struct {
 func CreateAdjList[T comparable]() *ListNode[T] {
 	return &ListNode[T]{}
 }
+
+func (g *ListNode[T]) RootList(value T) error {
+	return nil
+}
