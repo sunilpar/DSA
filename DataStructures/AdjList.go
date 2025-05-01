@@ -37,6 +37,7 @@ func (g *Adjlist[T]) AddNode(value T) error {
 		if err != nil {
 			log.Fatalf("error: %s\n", err.Error())
 		}
+		return nil
 	}
 	n := ListNode[T]{Value: value}
 	g.Nodes = append(g.Nodes, n)
@@ -62,6 +63,27 @@ func (g *Adjlist[T]) AddEdge(p, c T, w int) error {
 	}
 	C := ListEdge[T]{To: ci, Weight: w}
 	g.Nodes[pi].Childs = append(g.Nodes[pi].Childs, C)
-	fmt.Printf("p:%v \n", g.Nodes[pi])
+	return nil
+}
+
+func (g *Adjlist[T]) DeleteNode(value T) error {
+	pi := -1
+	for i, v := range g.Nodes {
+		if v.Value == value {
+			pi = i
+			break
+		}
+	}
+	if pi == -1 {
+		return fmt.Errorf("couldn't find node to delete: %v", value)
+	}
+	nn := make([]ListNode[T], 0, len(g.Nodes)-1)
+	for i, node := range g.Nodes {
+		if i != pi {
+			nn = append(nn, node)
+		}
+	}
+	g.Nodes = nn
+	fmt.Printf("%v\n", g.Nodes)
 	return nil
 }

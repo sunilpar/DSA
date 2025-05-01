@@ -7,11 +7,20 @@ import (
 
 func main() {
 	g := DS.CreateAdjList[int]()
-	g.AddNode(20)
-	g.AddNode(30)
-	err := g.AddEdge(20, 30, 0)
+	err := g.AddNode(20)
 	if err != nil {
 		log.Fatalf("error: %s\n", err.Error())
 	}
-	g.AddNode(10)
+	err = g.AddNode(30)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
+	err = g.AddEdge(20, 30, 0)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
+	err = g.DeleteNode(20)
+	if err != nil {
+		log.Fatalf("error: %s\n", err.Error())
+	}
 }
