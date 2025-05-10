@@ -84,6 +84,5 @@ func (g *Adjlist[T]) DeleteNode(value T) error {
 		}
 	}
 	g.Nodes = nn
-	fmt.Printf("%v\n", g.Nodes)
 	return nil
 }
