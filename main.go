@@ -1,26 +1,14 @@
 package main
 
 import (
-	DS "DSA/DataStructures"
-	"log"
+	leetcode "DSA/Leetcode/arrays"
+	"fmt"
 )
 
 func main() {
-	g := DS.CreateAdjList[int]()
-	err := g.AddNode(20)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
-	err = g.AddNode(30)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
-	err = g.AddEdge(20, 30, 0)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
-	err = g.DeleteNode(20)
-	if err != nil {
-		log.Fatalf("error: %s\n", err.Error())
-	}
+	nums := []int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}
+	// nums := []int{1, 1, 2}
+	u := leetcode.RemoveDuplicates(nums)
+	fmt.Printf("unq:%v\n", u)
+
 }
