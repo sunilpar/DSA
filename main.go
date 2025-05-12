@@ -6,9 +6,10 @@ import (
 )
 
 func main() {
-	nums := []int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}
-	// nums := []int{1, 1, 2}
-	u := leetcode.RemoveDuplicates(nums)
-	fmt.Printf("unq:%v\n", u)
-
+	nums := []int{1, 3, 5, 6}
+	// target := 5
+	// target := 2
+	target := 4
+	u := leetcode.SearchInsert(nums, target)
+	fmt.Printf("main-->\ttarget:%v returned:%v\n", target, u)
 }
