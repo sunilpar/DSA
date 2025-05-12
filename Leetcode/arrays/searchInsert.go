@@ -1,9 +1,23 @@
 package leetcode
 
 func searchInsert(nums []int, target int) int {
-	// binary search and
-	// after search if not found
-	// if nums[mid]<target
-	// return mid+1
-	// else mid-1
+	l := 0
+	h := len(nums) - 1
+	mid := l + (h-l)/2
+	for l <= h {
+		if nums[mid] == target {
+			return mid
+		}
+		if nums[mid] < target {
+			l = mid + 1
+		} else {
+			h = mid - 1
+		}
+		mid = l + (h-l)/2
+	}
+	if nums[mid] < target {
+		return mid + 1
+	} else {
+		return mid - 1
+	}
 }
