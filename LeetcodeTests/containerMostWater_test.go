@@ -13,6 +13,7 @@ func TestMaxArea(t *testing.T) {
 	}{
 		{[]int{1, 8, 6, 2, 5, 4, 8, 3, 7}, 49},
 		{[]int{1, 1}, 1},
+		{[]int{1, 6, 7, 7, 4, 3, 7, 2, 6}, 42},
 	}
 
 	for _, test := range tests {
