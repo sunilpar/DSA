@@ -12,5 +12,4 @@ func gameOfLife(board [][]int) {
 	//crate a new fucntion that takes index and gives array of int with 0 th postion as no of 0s and 1 postion as no of 1s
 	//then by the no of os and 1s i can look condition
 	//it will use 2 loops so O(n2)
-
 }
