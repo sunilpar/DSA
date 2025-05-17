@@ -13,5 +13,4 @@ func gameOfLife(board [][]int) {
 	//then by the no of os and 1s i can look condition
 	//it will use 2 loops so O(n2)
 
-	//gap
 }
