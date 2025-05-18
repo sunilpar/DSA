@@ -8,8 +8,24 @@ package leetcode
 //@NOTE: 0 DEAD
 //@NOTE: put 1 if nev has 3 1's
 
-func gameOfLife(board [][]int) {
-	//crate a new fucntion that takes index and gives array of int with 0 th postion as no of 0s and 1 postion as no of 1s
-	//then by the no of os and 1s i can look condition
-	//it will use 2 loops so O(n2)
+func GameOfLife(board [][]int) {
+	org := []int{}
+	for i, _ := range board {
+		for j, _ := range board[i] {
+			org = heart(i, j, board)
+			if board[i][j] == 0 {
+				if org[0] > 3 {
+					board[i][j] = 1
+				}
+			} else {
+				if org[1] < 2 || org[1] > 3 {
+					board[i][j] = 0
+				}
+			}
+		}
+	}
+}
+
+func heart(i, j int, board [][]int) (org []int) {
+	return
 }
