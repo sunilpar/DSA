@@ -26,6 +26,31 @@ func GameOfLife(board [][]int) {
 	}
 }
 
-func heart(i, j int, board [][]int) (org []int) {
-	return
+func heart(i, j int, board [][]int) []int {
+	org := []int{}
+	O := 0
+	I := 0
+	indexes := [][]int{}
+	indexes = append(indexes, []int{i - 1, j})     //up
+	indexes = append(indexes, []int{i - 1, j - 1}) //up left
+	indexes = append(indexes, []int{i - 1, j + 1}) //up right
+	indexes = append(indexes, []int{i, j + 1})     // right
+	indexes = append(indexes, []int{i - 1, j})     // left
+	indexes = append(indexes, []int{i + 1, j})     //down
+	indexes = append(indexes, []int{i + 1, j - 1}) //down left
+	indexes = append(indexes, []int{i + 1, j + 1}) //down right
+
+	for _, v := range indexes {
+		if v[0] < 0 || v[0] < len(board)-1 || v[1] < 0 || v[1] < len(board[0])-1 {
+			continue
+		}
+		if board[v[0]][v[1]] == 0 {
+			O++
+		} else {
+			I++
+		}
+	}
+	org[0] = O
+	org[1] = I
+	return org
 }
