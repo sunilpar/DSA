@@ -41,6 +41,7 @@ func heart(i, j int, board [][]int) []int {
 			continue
 		}
 		if board[v[0]][v[1]] == 0 {
+
 			O++
 		} else {
 			I++
