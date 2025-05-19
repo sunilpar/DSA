@@ -1,5 +1,7 @@
 package leetcode
 
+import "fmt"
+
 func GameOfLife(board [][]int) {
 	org := []int{}
 	for i, _ := range board {
@@ -16,10 +18,12 @@ func GameOfLife(board [][]int) {
 			}
 		}
 	}
+
+	fmt.Printf("Output:%+v\n", board)
 }
 
 func heart(i, j int, board [][]int) []int {
-	org := []int{}
+	org := []int{0, 0}
 	O := 0
 	I := 0
 	indexes := [][]int{}
