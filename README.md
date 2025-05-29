@@ -19,3 +19,5 @@ https://leetcode.com/problems/3sum/?envType=problem-list-v2&envId=array
 https://leetcode.com/problems/game-of-life/description/?envType=problem-list-v2&envId=array
 
 https://leetcode.com/problems/median-of-two-sorted-arrays/description/?envType=problem-list-v2&envId=array
+
+https://leetcode.com/problems/sudoku-solver/?envType=problem-list-v2&envId=array
