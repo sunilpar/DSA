@@ -1,7 +1,6 @@
 package leetcode
 
 func FindMedianSortedArrays(nums1 []int, nums2 []int) float64 {
-
 	m, n := len(nums1), len(nums2)
 	var f func(i, j, k int) int
 	f = func(i, j, k int) int {
@@ -29,5 +28,4 @@ func FindMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	}
 	a, b := f(0, 0, (m+n+1)/2), f(0, 0, (m+n+2)/2)
 	return float64(a+b) / 2.0
-
 }
