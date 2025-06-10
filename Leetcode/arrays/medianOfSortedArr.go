@@ -2,9 +2,7 @@ package leetcode
 
 func FindMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	m, n := len(nums1), len(nums2)
-
 	var f func(i, j, k int) int
-
 	f = func(i, j, k int) int {
 		if i >= m {
 			return nums2[j+k-1]
@@ -30,7 +28,6 @@ func FindMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	}
 	a, b := f(0, 0, (m+n+1)/2), f(0, 0, (m+n+2)/2)
 	return float64(a+b) / 2.0
-
 }
 
 //https://leetcode.com/problems/median-of-two-sorted-arrays/description/?envType=problem-list-v2&envId=array
