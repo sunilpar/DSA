@@ -3,6 +3,7 @@ package leetcode
 import "fmt"
 
 func SearchInsert(nums []int, target int) int {
+
 	l := 0
 	h := len(nums) - 1
 	mid := l + (h-l)/2
@@ -19,4 +20,5 @@ func SearchInsert(nums []int, target int) int {
 		mid = l + (h-l)/2
 	}
 	return mid
+
 }
