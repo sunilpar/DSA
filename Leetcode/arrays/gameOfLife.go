@@ -20,8 +20,8 @@ func GameOfLife(board [][]int) {
 				board[i][j] = -1
 			}
 		}
-	}
 
+	}
 	for i := 0; i < m; i++ {
 		for j, v := range board[i] {
 			if v == 2 {
