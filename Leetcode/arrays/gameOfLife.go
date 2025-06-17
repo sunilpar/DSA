@@ -12,6 +12,7 @@ func GameOfLife(board [][]int) {
 					}
 				}
 			}
+
 			if v == 1 && (live < 2 || live > 3) {
 				board[i][j] = 2
 			}
@@ -20,6 +21,7 @@ func GameOfLife(board [][]int) {
 			}
 		}
 	}
+
 	for i := 0; i < m; i++ {
 		for j, v := range board[i] {
 			if v == 2 {
