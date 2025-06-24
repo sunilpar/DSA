@@ -1,7 +1,6 @@
 package leetcode
 
 func GameOfLife(board [][]int) {
-
 	m, n := len(board), len(board[0])
 	for i := 0; i < m; i++ {
 		for j, v := range board[i] {
@@ -22,7 +21,6 @@ func GameOfLife(board [][]int) {
 			}
 		}
 	}
-
 	for i := 0; i < m; i++ {
 		for j, v := range board[i] {
 			if v == 2 {
