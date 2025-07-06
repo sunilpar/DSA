@@ -1,0 +1,4 @@
+
+func nextPermutation(nums []int) {
+
+}
