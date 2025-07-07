@@ -1,4 +1,2 @@
-
 func nextPermutation(nums []int) {
-
 }
