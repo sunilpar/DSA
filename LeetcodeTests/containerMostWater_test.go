@@ -7,7 +7,6 @@ import (
 )
 
 func TestMaxArea(t *testing.T) {
-
 	tests := []struct {
 		nums     []int
 		expected int
