@@ -1,6 +1,7 @@
 package leetcode
 
 func GameOfLife(board [][]int) {
+
 	m, n := len(board), len(board[0])
 
 	for i := 0; i < m; i++ {
