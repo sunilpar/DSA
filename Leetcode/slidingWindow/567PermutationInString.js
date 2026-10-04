@@ -1,22 +1,33 @@
-function checkinclusion(s1, s2) {
+function checkInclusion(s1, s2) {
     if (s1.length > s2.length) {
         return false;
     }
-    const s2map = new Map();
-    s2.split("").forEach((char) => {
-        var _a;
-        s2map.set(char, ((_a = s2map.get(char)) !== null && _a !== void 0 ? _a : 0) + 1);
-    });
-    s1.split("").forEach((char) => {
-        const count = s2map.get(char);
-        if (!count || count < 1) {
-            return false;
+    const s1Count = new Array(26).fill(0);
+    const windowCount = new Array(26).fill(0);
+    // Count characters in s1
+    for (const char of s1) {
+        s1Count[char.charCodeAt(0) - 97]++;
+    }
+    // Create the first window in s2
+    for (let i = 0; i < s1.length; i++) {
+        windowCount[s2.charCodeAt(i) - 97]++;
+    }
+    // Check first window
+    if (s1Count.toString() === windowCount.toString()) {
+        return true;
+    }
+    // Slide the window
+    for (let i = s1.length; i < s2.length; i++) {
+        // Add new character
+        windowCount[s2.charCodeAt(i) - 97]++;
+        // Remove character leaving the window
+        windowCount[s2.charCodeAt(i - s1.length) - 97]--;
+        // Compare frequencies
+        if (s1Count.toString() === windowCount.toString()) {
+            return true;
         }
-        else {
-            s2map.set(char, count - 1);
-        }
-    });
-    return true;
+    }
+    return false;
 }
 const testCases = [
     {
@@ -113,7 +124,7 @@ const testCases = [
 let passed = 0;
 let failed = 0;
 for (const [index, test] of testCases.entries()) {
-    const actual = checkinclusion(test.s1, test.s2);
+    const actual = checkInclusion(test.s1, test.s2);
     if (actual !== test.expected) {
         failed++;
         console.error(`❌ Test #${index + 1} Failed`);

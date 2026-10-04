@@ -1,27 +1,42 @@
-function checkinclusion(s1: string, s2: string): boolean {
+function checkInclusion(s1: string, s2: string): boolean {
   if (s1.length > s2.length) {
     return false;
   }
 
-  const s2map = new Map<string, number>();
+  const s1Count = new Array(26).fill(0);
+  const windowCount = new Array(26).fill(0);
 
-  s2.split("").forEach((char) => {
-    s2map.set(char, (s2map.get(char) ?? 0) + 1);
-  });
+  // Count characters in s1
+  for (const char of s1) {
+    s1Count[char.charCodeAt(0) - 97]++;
+  }
 
-  s1.split("").forEach((char) => {
-    const count = s2map.get(char);
+  // Create the first window in s2
+  for (let i = 0; i < s1.length; i++) {
+    windowCount[s2.charCodeAt(i) - 97]++;
+  }
 
-    if (!count || count < 1) {
-      return false;
-    } else {
-      s2map.set(char, count - 1);
+  // Check first window
+  if (s1Count.toString() === windowCount.toString()) {
+    return true;
+  }
+
+  // Slide the window
+  for (let i = s1.length; i < s2.length; i++) {
+    // Add new character
+    windowCount[s2.charCodeAt(i) - 97]++;
+
+    // Remove character leaving the window
+    windowCount[s2.charCodeAt(i - s1.length) - 97]--;
+
+    // Compare frequencies
+    if (s1Count.toString() === windowCount.toString()) {
+      return true;
     }
-  });
+  }
 
-  return true;
+  return false;
 }
-
 type TestCase = {
   s1: string;
   s2: string;
@@ -125,7 +140,7 @@ let passed = 0;
 let failed = 0;
 
 for (const [index, test] of testCases.entries()) {
-  const actual = checkinclusion(test.s1, test.s2);
+  const actual = checkInclusion(test.s1, test.s2);
 
   if (actual !== test.expected) {
     failed++;
