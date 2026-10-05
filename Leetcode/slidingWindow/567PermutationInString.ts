@@ -37,6 +37,32 @@ function checkInclusion(s1: string, s2: string): boolean {
 
   return false;
 }
+
+function OptimalCheckInclusion(s1: string, s2: string): boolean {
+  const len1 = s1.length,
+    len2 = s2.length;
+
+  if (len1 > len2) return false;
+
+  const buckets = new Array(26).fill(0);
+
+  for (let i = 0; i < len1; i++) {
+    buckets[s1.charCodeAt(i) - 97]++;
+    buckets[s2.charCodeAt(i) - 97]--;
+  }
+
+  const isMatch = (arr) => arr.every((num) => num === 0);
+  if (isMatch(buckets)) return true;
+
+  for (let i = len1; i < len2; i++) {
+    buckets[s2.charCodeAt(i) - 97]--;
+    buckets[s2.charCodeAt(i - len1) - 97]++;
+
+    if (isMatch(buckets)) return true;
+  }
+
+  return false;
+}
 type TestCase = {
   s1: string;
   s2: string;
