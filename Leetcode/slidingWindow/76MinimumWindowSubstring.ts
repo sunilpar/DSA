@@ -1,6 +1,4 @@
 function minWindow(s: string, t: string): string {
-  // Write your solution here
-
   return "";
 }
 
