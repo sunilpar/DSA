@@ -27,6 +27,7 @@ function minWindow(s: string, t: string): string {
       formed++;
     }
 
+    //NOTE: this is the core of the operation see how window(char) is decrease and left is increase
     while (formed === required) {
       const currentLength = right - left + 1;
 
