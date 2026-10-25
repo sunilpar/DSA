@@ -17,5 +17,6 @@ function isValid(s: string): boolean {
 
 const s = "()";
 const s2 = "()[]{}";
+const s3 = "(){{[]{}";
 
-console.log(isValid(s));
+console.log(isValid(s3));
