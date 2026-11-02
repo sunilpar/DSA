@@ -1,37 +1,33 @@
 class MinStack {
-  private Ms: number[] = [];
-  private Mins: number[] = [];
+  stack: number[];
+  mins: number[];
 
-  constructor() {}
+  constructor() {
+    this.stack = [];
+    this.mins = [];
+  }
 
   push(value: number): void {
-    console.log("Stack :", this.Ms, "pushing :", value);
-
-    this.Ms.push(value);
-    if (this.Mins.length == 0) {
-      this.Mins.push(value);
-    } else if (this.Mins[this.Mins.length - 1] >= value) {
-      this.Mins.push(value);
+    this.stack.push(value);
+    const minsLength = this.mins.length;
+    if (minsLength === 0 || value < this.mins[minsLength - 1]) {
+      this.mins.push(value);
+    } else {
+      this.mins.push(this.mins[minsLength - 1]);
     }
-    console.log("minS :", this.Mins);
   }
 
   pop(): void {
-    console.log("Stack :", this.Ms, "poping :", this.Ms[this.Ms.length - 1]);
-    const temp = this.Ms.pop();
-    if (temp == this.Mins[this.Mins.length - 1]) {
-      this.Mins.pop();
-    }
-    console.log("minS :", this.Mins);
+    this.stack.pop();
+    this.mins.pop();
   }
 
   top(): number {
-    return this.Ms[this.Ms.length - 1];
+    return this.stack[this.stack.length - 1];
   }
 
   getMin(): number {
-    console.log("getitng min Mins :", this.Mins);
-    return this.Mins[this.Mins.length - 1];
+    return this.mins[this.mins.length - 1];
   }
 }
 
